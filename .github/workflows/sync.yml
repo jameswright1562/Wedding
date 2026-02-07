@@ -1,0 +1,18 @@
+name: Sync Supabase to Google Sheets
+
+on:
+  schedule:
+    - cron: "0 * * * *" # every hour
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Supabase Edge Function
+        run: |
+          curl -L -X POST 'https://jfqqkujeplewiazefbkd.supabase.co/functions/v1/sync-to-sheets' \
+            -H 'Authorization: Bearer sb_publishable_KxMFQwtbKFrN3L1V2BiHsA_N3l-7WhQ' \
+            -H 'apikey: sb_publishable_KxMFQwtbKFrN3L1V2BiHsA_N3l-7WhQ' \
+            -H 'Content-Type: application/json' \
+            --data '{"name":"Functions"}'
