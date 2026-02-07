@@ -16,7 +16,7 @@
       crossorigin="anonymous"
     ></script>
   </head>
-  <body data-supabase-url="" data-supabase-key="">
+  <body>
     <main class="invite">
       <header class="invite__header">
         <div class="flourish flourish--left"></div>
@@ -129,11 +129,70 @@
             Dietary Notes
             <textarea name="notes" rows="3" placeholder="Allergies or special requests"></textarea>
           </label>
+          <div class="dependents">
+            <div class="dependents__header">
+              <h3>Additional Guests</h3>
+              <button type="button" id="add-dependent">Add Guest</button>
+            </div>
+            <p class="dependents__hint">
+              Add meal selections for any children or extra guests.
+            </p>
+            <div id="dependents-container" class="dependents__list"></div>
+            <template id="dependent-template">
+              <div class="dependent">
+                <div class="dependent__title">
+                  <span class="dependent__label">Guest</span>
+                  <button type="button" class="dependent__remove">Remove</button>
+                </div>
+                <label>
+                  Guest Name
+                  <input type="text" name="dependent_name" required placeholder="Guest name" />
+                </label>
+                <label>
+                  Soup Selection
+                  <select name="dependent_soup" required>
+                    <option value="">Select a soup</option>
+                    <option>Cauliflower &amp; smoked cheddar velouté (V)</option>
+                    <option>Green pea, mint &amp; crispy bacon (VA)</option>
+                    <option>Tomato &amp; roasted red pepper with basil pesto (V)</option>
+                    <option>Roasted butternut squash with spiced coconut cream</option>
+                  </select>
+                </label>
+                <label>
+                  Starter Selection
+                  <select name="dependent_starter" required>
+                    <option value="">Select a starter</option>
+                    <option>Chicken liver parfait with toasted brioche</option>
+                    <option>Grilled salmon with chervil white wine sauce</option>
+                    <option>Goat cheese tart with balsamic glazed onions (V)</option>
+                    <option>Pressed ham &amp; smoked chicken terrine</option>
+                    <option>Beetroot falafel, pea &amp; pomegranate salad (VE)</option>
+                  </select>
+                </label>
+                <label>
+                  Sorbet Selection
+                  <select name="dependent_sorbet" required>
+                    <option value="">Select a sorbet</option>
+                    <option>Lemon</option>
+                    <option>Raspberry</option>
+                    <option>Green apple</option>
+                    <option>Passionfruit</option>
+                    <option>Mango</option>
+                  </select>
+                </label>
+                <label>
+                  Dietary Notes
+                  <textarea name="dependent_notes" rows="2" placeholder="Allergies or notes"></textarea>
+                </label>
+              </div>
+            </template>
+          </div>
           <button type="submit">Send RSVP</button>
           <p class="form-status" role="status" aria-live="polite"></p>
         </form>
       </section>
     </main>
+    <script src="supabase-config.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

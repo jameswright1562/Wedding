@@ -168,6 +168,65 @@ body {
   font-size: 1.05rem;
 }
 
+.dependents {
+  border: 1px solid rgba(242, 215, 161, 0.2);
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(13, 12, 24, 0.6);
+  display: grid;
+  gap: 12px;
+}
+
+.dependents__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dependents__header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.dependents__hint {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(242, 215, 161, 0.8);
+}
+
+.dependents__list {
+  display: grid;
+  gap: 16px;
+}
+
+.dependent {
+  border: 1px solid rgba(242, 215, 161, 0.2);
+  padding: 12px;
+  border-radius: 10px;
+  display: grid;
+  gap: 12px;
+  background: rgba(8, 7, 16, 0.7);
+}
+
+.dependent__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+.dependent__remove,
+#add-dependent {
+  background: transparent;
+  border: 1px solid rgba(242, 215, 161, 0.4);
+  color: #f2d7a1;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
 .rsvp-form input,
 .rsvp-form select,
 .rsvp-form textarea {

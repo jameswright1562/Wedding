@@ -14,5 +14,7 @@ describe("wedding invite page", () => {
     expect(document.querySelector(".invite__menu")).not.toBeNull();
     expect(document.querySelector("#rsvp-form")).not.toBeNull();
     expect(document.querySelectorAll(".arrow").length).toBe(2);
+    expect(document.querySelector("#add-dependent")).not.toBeNull();
+    expect(document.querySelector("#dependent-template")).not.toBeNull();
   });
 });
