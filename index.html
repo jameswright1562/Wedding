@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ryan & Emmie | Wedding Invitation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body data-supabase-url="" data-supabase-key="">
+    <main class="invite">
+      <header class="invite__header">
+        <div class="flourish flourish--left"></div>
+        <div class="flourish flourish--right"></div>
+        <div class="flourish flourish--center"></div>
+        <p class="invite__eyebrow">You're Invited</p>
+        <h1 class="invite__names">Ryan &amp; Emmie</h1>
+        <p class="invite__subhead">
+          Request the Honor of Your Presence at their wedding.
+        </p>
+      </header>
+
+      <section class="invite__details">
+        <p class="invite__month">January</p>
+        <div class="invite__date">
+          <span class="invite__day">Thursday</span>
+          <span class="invite__number">14</span>
+          <span class="invite__time">15:30 PM</span>
+        </div>
+        <p class="invite__year">2027</p>
+        <p class="invite__location">Abbey Hill Golf Course</p>
+        <p class="invite__postcode">MK8 8AA</p>
+        <p class="invite__rsvp">RSVP at 07435 047110</p>
+      </section>
+
+      <section class="invite__menu">
+        <h2 class="section-title">Wedding Menu</h2>
+        <p class="section-subtitle">Kindly select your meal choices below</p>
+        <div class="menu-grid">
+          <div class="menu-column">
+            <h3>Soups</h3>
+            <ul>
+              <li>Cauliflower &amp; smoked cheddar velouté (V)</li>
+              <li>Green pea, mint &amp; crispy bacon (VA)</li>
+              <li>Tomato &amp; roasted red pepper finished with basil pesto (V)</li>
+              <li>Roasted butternut squash with spiced coconut cream</li>
+            </ul>
+          </div>
+          <div class="menu-column">
+            <h3>Starters</h3>
+            <ul>
+              <li>Chicken liver parfait with toasted brioche &amp; onion chutney</li>
+              <li>Grilled salmon with chervil white wine sauce</li>
+              <li>Goat cheese tart with balsamic glazed onions (V)</li>
+              <li>Pressed ham &amp; smoked chicken terrine with piccalilli</li>
+              <li>Beetroot falafel, pea &amp; pomegranate salad (VE)</li>
+            </ul>
+          </div>
+          <div class="menu-column">
+            <h3>Sorbet</h3>
+            <ul>
+              <li>Lemon, raspberry, green apple, passionfruit &amp; mango</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="invite__rsvp-form">
+        <div class="arrow-banner">
+          <span>Choose your meal options</span>
+          <div class="arrow-row">
+            <svg class="arrow" viewBox="0 0 120 60" aria-hidden="true">
+              <path d="M10 10 C30 30 45 30 60 50" />
+              <path d="M52 36 L60 50 L74 44" />
+            </svg>
+            <svg class="arrow" viewBox="0 0 120 60" aria-hidden="true">
+              <path d="M110 10 C90 30 75 30 60 50" />
+              <path d="M68 36 L60 50 L46 44" />
+            </svg>
+          </div>
+        </div>
+        <form id="rsvp-form" class="rsvp-form">
+          <label>
+            Full Name
+            <input type="text" name="guest_name" required placeholder="Your name" />
+          </label>
+          <label>
+            Soup Selection
+            <select name="soup" required>
+              <option value="">Select a soup</option>
+              <option>Cauliflower &amp; smoked cheddar velouté (V)</option>
+              <option>Green pea, mint &amp; crispy bacon (VA)</option>
+              <option>Tomato &amp; roasted red pepper with basil pesto (V)</option>
+              <option>Roasted butternut squash with spiced coconut cream</option>
+            </select>
+          </label>
+          <label>
+            Starter Selection
+            <select name="starter" required>
+              <option value="">Select a starter</option>
+              <option>Chicken liver parfait with toasted brioche</option>
+              <option>Grilled salmon with chervil white wine sauce</option>
+              <option>Goat cheese tart with balsamic glazed onions (V)</option>
+              <option>Pressed ham &amp; smoked chicken terrine</option>
+              <option>Beetroot falafel, pea &amp; pomegranate salad (VE)</option>
+            </select>
+          </label>
+          <label>
+            Sorbet Selection
+            <select name="sorbet" required>
+              <option value="">Select a sorbet</option>
+              <option>Lemon</option>
+              <option>Raspberry</option>
+              <option>Green apple</option>
+              <option>Passionfruit</option>
+              <option>Mango</option>
+            </select>
+          </label>
+          <label>
+            Dietary Notes
+            <textarea name="notes" rows="3" placeholder="Allergies or special requests"></textarea>
+          </label>
+          <button type="submit">Send RSVP</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
