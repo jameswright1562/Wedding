@@ -5,6 +5,30 @@ const addDependentButton = document.querySelector("#add-dependent");
 const dependentsContainer = document.querySelector("#dependents-container");
 const dependentTemplate = document.querySelector("#dependent-template");
 
+// Prevent zoom on input focus for iOS
+const preventZoom = () => {
+  const viewport = document.querySelector('meta[name="viewport"]');
+  if (viewport) {
+    // Store original viewport
+    const originalContent = viewport.getAttribute("content");
+    
+    document.addEventListener("focusin", (e) => {
+      if (e.target.matches("input, select, textarea")) {
+        viewport.setAttribute("content", originalContent + ", user-scalable=no");
+      }
+    });
+    
+    document.addEventListener("focusout", () => {
+      viewport.setAttribute("content", originalContent);
+    });
+  }
+};
+
+// Only apply on mobile devices
+if (window.matchMedia("(max-width: 768px)").matches) {
+  preventZoom();
+}
+
 const configFromScript = window.SUPABASE_CONFIG ?? {};
 const hasSupabaseConfig = Boolean(configFromScript.url && configFromScript.key);
 
@@ -49,6 +73,35 @@ const addDependent = () => {
     updateDependentLabels();
   });
   dependentsContainer.appendChild(content);
+  // After appending, wire up tab controls inside the newly added dependent
+  const setupTabs = (root) => {
+    const buttons = root.querySelectorAll('.tab-btn');
+    const panels = root.querySelectorAll('.tab-panel');
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const type = btn.dataset.type;
+        buttons.forEach((b) => b.classList.toggle('active', b === btn));
+        panels.forEach((p) => {
+          const sel = p.querySelector('select');
+          if (p.dataset.panel === type) {
+            p.classList.add('active');
+            if (sel) sel.disabled = false;
+          } else {
+            p.classList.remove('active');
+            if (sel) sel.disabled = true;
+          }
+        });
+      });
+    });
+    // ensure initial state
+    panels.forEach((p) => {
+      const sel = p.querySelector('select');
+      if (!p.classList.contains('active') && sel) sel.disabled = true;
+      if (p.classList.contains('active') && sel) sel.disabled = false;
+    });
+  };
+
+  if (dependent) setupTabs(dependent);
   updateDependentLabels();
 };
 
@@ -74,6 +127,8 @@ form?.addEventListener("submit", async (event) => {
     soup: formData.get("soup"),
     starter: formData.get("starter"),
     sorbet: formData.get("sorbet"),
+    main_course: formData.get("main_course"),
+    dessert: formData.get("dessert"),
     notes: formData.get("notes"),
     dependent_of: null,
     submitted_at: submittedAt,
@@ -87,9 +142,10 @@ form?.addEventListener("submit", async (event) => {
         dependent.querySelector(selector)?.value ?? "";
       return {
         guest_name: getValue("input[name='dependent_name']"),
-        soup: getValue("select[name='dependent_soup']"),
         starter: getValue("select[name='dependent_starter']"),
         sorbet: getValue("select[name='dependent_sorbet']"),
+        main_course: getValue("select[name='dependent_main_course']"),
+        dessert: getValue("select[name='dependent_dessert']"),
         notes: getValue("textarea[name='dependent_notes']"),
         dependent_of: payload.guest_name,
         submitted_at: submittedAt,

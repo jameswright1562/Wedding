@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#161421" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Ryan & Emmie | Wedding Invitation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -46,15 +49,7 @@
         <h2 class="section-title">Wedding Menu</h2>
         <p class="section-subtitle">Kindly select your meal choices below</p>
         <div class="menu-grid">
-          <div class="menu-column">
-            <h3>Soups</h3>
-            <ul>
-              <li>Cauliflower &amp; smoked cheddar velouté (V)</li>
-              <li>Green pea, mint &amp; crispy bacon (VA)</li>
-              <li>Tomato &amp; roasted red pepper finished with basil pesto (V)</li>
-              <li>Roasted butternut squash with spiced coconut cream</li>
-            </ul>
-          </div>
+         
           <div class="menu-column">
             <h3>Starters</h3>
             <ul>
@@ -77,41 +72,27 @@
       <section class="invite__rsvp-form">
         <div class="arrow-banner">
           <span>Choose your meal options</span>
-          <div class="arrow-row">
-            <svg class="arrow" viewBox="0 0 120 60" aria-hidden="true">
-              <path d="M10 10 C30 30 45 30 60 50" />
-              <path d="M52 36 L60 50 L74 44" />
-            </svg>
-            <svg class="arrow" viewBox="0 0 120 60" aria-hidden="true">
-              <path d="M110 10 C90 30 75 30 60 50" />
-              <path d="M68 36 L60 50 L46 44" />
-            </svg>
-          </div>
+<div class="arrow-row">
+  <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M6 9l6 6 6-6" />
+  </svg>
+</div>
+
+
         </div>
         <form id="rsvp-form" class="rsvp-form">
           <label>
             Full Name
             <input type="text" name="guest_name" required placeholder="Your name" />
           </label>
-          <label>
-            Soup Selection
-            <select name="soup" required>
-              <option value="">Select a soup</option>
-              <option>Cauliflower &amp; smoked cheddar velouté (V)</option>
-              <option>Green pea, mint &amp; crispy bacon (VA)</option>
-              <option>Tomato &amp; roasted red pepper with basil pesto (V)</option>
-              <option>Roasted butternut squash with spiced coconut cream</option>
-            </select>
-          </label>
+         
           <label>
             Starter Selection
             <select name="starter" required>
-              <option value="">Select a starter</option>
-              <option>Chicken liver parfait with toasted brioche</option>
-              <option>Grilled salmon with chervil white wine sauce</option>
-              <option>Goat cheese tart with balsamic glazed onions (V)</option>
-              <option>Pressed ham &amp; smoked chicken terrine</option>
-              <option>Beetroot falafel, pea &amp; pomegranate salad (VE)</option>
+            <option value="">Select a starter</option>
+            <option> Tomato & roasted red pepper with basil pesto (V)</option>
+            <option> Grilled salmon with chervil white wine sauce & crushed lemon potatoes </option>
+            <option> Confit tomato & mozzarella bruschetta, Red onion & Chive salsa (v) </option>
             </select>
           </label>
           <label>
@@ -125,6 +106,27 @@
               <option>Mango</option>
             </select>
           </label>
+          <label> 
+            Main Course Selection
+            <select name="main_course" required>
+              <option value="">Select a main course</option>
+              <option>Braised blade of beef with dauphinoise potatoes & roasted vegetables</option>
+              <option>Roast breast of chicken, yorkshire pudding, sage & onion stuffing & roasted potatoes & vegetables</option>
+              <option>open mushroom & Sage lasagne finished with a light lemon cream sauce (V) (VE)</option>
+            </select>
+          </label>
+          <label> 
+            Dessert Selection
+            <select name="dessert" required>
+              <option value="">Select a dessert</option>
+           <option> Dark chocolate mousse, fresh raspberries & chocolate cookie</option>
+            <option> White & dark chocolate brownie, pistachio ice cream</option>
+            <option> salted caramel cheesecake,fruit coulis</option>
+            </select>
+          </label>
+          
+
+        
           <label>
             Dietary Notes
             <textarea name="notes" rows="3" placeholder="Allergies or special requests"></textarea>
@@ -148,38 +150,77 @@
                   Guest Name
                   <input type="text" name="dependent_name" required placeholder="Guest name" />
                 </label>
-                <label>
-                  Soup Selection
-                  <select name="dependent_soup" required>
-                    <option value="">Select a soup</option>
-                    <option>Cauliflower &amp; smoked cheddar velouté (V)</option>
-                    <option>Green pea, mint &amp; crispy bacon (VA)</option>
-                    <option>Tomato &amp; roasted red pepper with basil pesto (V)</option>
-                    <option>Roasted butternut squash with spiced coconut cream</option>
-                  </select>
-                </label>
-                <label>
-                  Starter Selection
-                  <select name="dependent_starter" required>
-                    <option value="">Select a starter</option>
-                    <option>Chicken liver parfait with toasted brioche</option>
-                    <option>Grilled salmon with chervil white wine sauce</option>
-                    <option>Goat cheese tart with balsamic glazed onions (V)</option>
-                    <option>Pressed ham &amp; smoked chicken terrine</option>
-                    <option>Beetroot falafel, pea &amp; pomegranate salad (VE)</option>
-                  </select>
-                </label>
-                <label>
-                  Sorbet Selection
-                  <select name="dependent_sorbet" required>
-                    <option value="">Select a sorbet</option>
-                    <option>Lemon</option>
-                    <option>Raspberry</option>
-                    <option>Green apple</option>
-                    <option>Passionfruit</option>
-                    <option>Mango</option>
-                  </select>
-                </label>
+                <div class="dependent-tabs">
+                  <div class="tab-buttons">
+                    <button type="button" class="tab-btn active" data-type="adult">Adult</button>
+                  </div>
+
+                  <div class="tab-panel active" data-panel="adult">
+                    <label>Starter Selection</label>
+                    <select name="dependent_starter" required>
+                      <option value="">Select a starter</option>
+                      <option>Tomato & roasted red pepper with basil pesto (V)</option>
+                      <option>Grilled salmon with chervil white wine sauce & crushed lemon potatoes</option>
+                      <option>Confit tomato & mozzarella bruschetta, Red onion & Chive salsa (V)</option>
+                    </select>
+
+                    <label>Sorbet Selection</label>
+                    <select name="dependent_sorbet" required>
+                      <option value="">Select a sorbet</option>
+                      <option>Lemon</option>
+                      <option>Raspberry</option>
+                      <option>Green apple</option>
+                      <option>Passionfruit</option>
+                      <option>Mango</option>
+                    </select>
+
+                    <label>Main Course Selection</label>
+                    <select name="dependent_main_course" required>
+                      <option value="">Select a main course</option>
+                      <option>Braised blade of beef with dauphinoise potatoes & roasted vegetables</option>
+                      <option>Roast breast of chicken, yorkshire pudding, sage & onion stuffing & roasted potatoes & vegetables</option>
+                      <option>open mushroom & Sage lasagne finished with a light lemon cream sauce (V) (VE)</option>
+                    </select>
+
+                    <label>Dessert Selection</label>
+                    <select name="dependent_dessert" required>
+                      <option value="">Select a dessert</option>
+                      <option>Dark chocolate mousse, fresh raspberries & chocolate cookie</option>
+                      <option>White & dark chocolate brownie, pistachio ice cream</option>
+                      <option>Salted caramel cheesecake, fruit coulis</option>
+                    </select>
+                    <!-- Dependant toggle placed immediately after the first dessert dropdown -->
+                    <div class="dependent-child-toggle" style="margin-top:12px;">
+                      <button type="button" class="tab-btn" data-type="dependant">DEPENDANT</button>
+                    </div>
+                  </div>
+
+                  <div class="tab-panel" data-panel="dependant">
+                    <label>Starter Selection</label>
+                    <select name="dependent_starter_kid" disabled>
+                      <option value="">Select a starter</option>
+                      <option>Garlic bread</option>
+                      <option>Homemade soup</option>
+                      <option>Melon and Raspberry platter &amp; dip</option>
+                    </select>
+
+                    <label>Main Course Selection</label>
+                    <select name="dependent_main_course_kid" disabled>
+                      <option value="">Select a main course</option>
+                      <option>chicken nuggets,chips & beans OR peas</option>
+                      <option>Sausage & mash with beans OR peas </option>
+                      <option>Fish fingers, chips & beans OR peas</option>
+                  
+                    </select>
+
+                    <label>Dessert Selection</label>
+                    <select name="dependent_dessert_kid" disabled>
+                      <option value="">Select a dessert</option>
+                      <option>Mini chocolate brownie with vanilla ice cream</option>
+                      <option>Sticky toffee pudding with vanilla ice cream</option>
+                    </select>
+                  </div>
+                </div>
                 <label>
                   Dietary Notes
                   <textarea name="dependent_notes" rows="2" placeholder="Allergies or notes"></textarea>
