@@ -82,14 +82,17 @@ const addDependent = () => {
         const type = btn.dataset.type;
         buttons.forEach((b) => b.classList.toggle('active', b === btn));
         panels.forEach((p) => {
-          const sel = p.querySelector('select');
-          if (p.dataset.panel === type) {
-            p.classList.add('active');
-            if (sel) sel.disabled = false;
-          } else {
-            p.classList.remove('active');
-            if (sel) sel.disabled = true;
-          }
+          const sel = p.querySelectorAll('select');
+          sel.forEach((s) => {
+            if (p.dataset.panel === type) {
+              p.classList.add('active');
+              if (s) s.disabled = false;
+            } else {
+              p.classList.remove('active');
+              if (s) s.disabled = true;
+            }
+          })
+
         });
       });
     });
@@ -112,10 +115,10 @@ addDependentButton?.addEventListener("click", () => {
 form?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  if (!supabaseClient) {
-    setStatus("Supabase is not configured yet.", true);
-    return;
-  }
+  // if (!supabaseClient) {
+  //   setStatus("Supabase is not configured yet.", true);
+  //   return;
+  // }
 
   submitButton?.setAttribute("disabled", "disabled");
   setStatus("Sending your RSVP...");
@@ -124,13 +127,13 @@ form?.addEventListener("submit", async (event) => {
   const submittedAt = new Date().toISOString();
   const payload = {
     guest_name: formData.get("guest_name"),
-    soup: formData.get("soup"),
     starter: formData.get("starter"),
     sorbet: formData.get("sorbet"),
     main_course: formData.get("main_course"),
     dessert: formData.get("dessert"),
     notes: formData.get("notes"),
     dependent_of: null,
+    isKid: false,
     submitted_at: submittedAt,
   };
 
@@ -138,24 +141,37 @@ form?.addEventListener("submit", async (event) => {
     dependentsContainer?.querySelectorAll(".dependent") ?? []
   )
     .map((dependent) => {
-      const getValue = (selector) =>
-        dependent.querySelector(selector)?.value ?? "";
-      return {
-        guest_name: getValue("input[name='dependent_name']"),
-        starter: getValue("select[name='dependent_starter']"),
-        sorbet: getValue("select[name='dependent_sorbet']"),
-        main_course: getValue("select[name='dependent_main_course']"),
-        dessert: getValue("select[name='dependent_dessert']"),
-        notes: getValue("textarea[name='dependent_notes']"),
+      const isKid = dependent.querySelector(".tab-panel.active").dataset.panel === "dependant";
+      const getValue = (selector, changeSelector = true) => {
+        if(!changeSelector) return dependent.querySelector(selector)?.value ?? "";
+        if(isKid) selector += "_kid";
+        selector += "']";
+        console.log(selector)
+        var x = dependent.querySelector(selector)?.value ?? "";
+        console.log(x)
+        return x;
+      }
+      var dependent = {
+        guest_name: getValue("input[name='dependent_name']", false),
+        starter: getValue("select[name='dependent_starter") ?? "",
+        sorbet: getValue("select[name='dependent_sorbet") ?? "",
+        main_course: getValue("select[name='dependent_main_course") ?? "",
+        dessert: getValue("select[name='dependent_dessert") ?? "",
+        notes: getValue("textarea[name='dependent_notes']", false) ?? "",
+        isKid: isKid,
         dependent_of: payload.guest_name,
         submitted_at: submittedAt,
       };
+      console.log(dependent)
+      return dependent;
     })
     .filter((row) => row.guest_name);
 
+  const req = [payload, ...dependentRows];
+    console.log(req)
   const { error } = await supabaseClient
     .from("wedding_rsvps")
-    .insert([payload, ...dependentRows]);
+    .insert(req);
 
   if (error) {
     setStatus("Something went wrong. Please try again.", true);

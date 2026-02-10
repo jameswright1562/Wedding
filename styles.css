@@ -23,6 +23,7 @@ body {
   padding: clamp(20px, 5vw, 40px) clamp(12px, 4vw, 16px);
 }
 
+
 .invite {
   max-width: 900px;
   width: 100%;
@@ -156,6 +157,7 @@ body {
 
 .arrow-row {
   display: flex;
+  justify-content: center;
   gap: 32px;
 }
 
@@ -265,6 +267,7 @@ body {
   border-radius: 9px;
   font-family: inherit;
   transition: border-color 0.3s ease, background-color 0.3s ease;
+  max-width: fit-content;
 }
 
 .rsvp-form input:focus,
@@ -415,4 +418,25 @@ body {
   #add-dependent {
     width: 100%;
   }
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.tab-btn {
+  opacity: 0.5;
+}
+
+.tab-btn.active {
+  opacity: 1;
+}
+
+.tab-buttons {
+  display: inline-flex;
+  justify-content: center;
 }
