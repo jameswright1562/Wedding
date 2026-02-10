@@ -267,7 +267,6 @@ body {
   border-radius: 9px;
   font-family: inherit;
   transition: border-color 0.3s ease, background-color 0.3s ease;
-  max-width: fit-content;
 }
 
 .rsvp-form input:focus,
