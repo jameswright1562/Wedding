@@ -254,6 +254,17 @@ body {
   border-color: rgba(242, 215, 161, 0.6);
 }
 
+/* Tab panels: hide inactive panels and disable pointer events to avoid click interception */
+.tab-panel {
+  display: none;
+  pointer-events: none;
+  opacity: 0.95;
+}
+.tab-panel.active {
+  display: block;
+  pointer-events: auto;
+}
+
 .rsvp-form input,
 .rsvp-form select,
 .rsvp-form textarea {
