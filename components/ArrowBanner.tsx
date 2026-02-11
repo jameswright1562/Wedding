@@ -12,7 +12,6 @@ export function ArrowBanner() {
       <span>Choose your meal options</span>
       <div className="arrow-row">
         <Arrow />
-        <Arrow />
       </div>
     </div>
   );
