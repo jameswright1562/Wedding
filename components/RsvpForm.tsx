@@ -19,11 +19,12 @@ const blankDependent = (): Dependent => ({
 });
 
 export function RsvpForm() {
+  const allowMockSubmit =
+    process.env.NODE_ENV !== "production" ||
+    process.env.NEXT_PUBLIC_ENABLE_SUPABASE_MOCK === "true";
   const [status, setStatus] = useState<{ message: string; isError: boolean }>({
-    message: hasSupabaseConfig
-      ? ""
-      : "Supabase is not configured yet. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
-    isError: !hasSupabaseConfig,
+    message: "",
+    isError: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -47,6 +48,14 @@ export function RsvpForm() {
 
   const onSubmit = handleSubmit(async (data) => {
     if (!hasSupabaseConfig || !supabaseClient) {
+      if (allowMockSubmit) {
+        setStatus({
+          message: "Thank you! Your RSVP has been recorded.",
+          isError: false,
+        });
+        reset();
+        return;
+      }
       setStatus({
         message:
           "Supabase is not configured. Add env vars to send RSVPs to the database.",
