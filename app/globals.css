@@ -182,6 +182,7 @@ body {
   display: grid;
   gap: clamp(6px, 1.5vw, 8px);
   font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  width: 100%;
 }
 
 .dependents {
@@ -259,6 +260,8 @@ body {
 .rsvp-form input,
 .rsvp-form select,
 .rsvp-form textarea {
+  width: 100%;
+  max-width: 100%;
   background: rgba(13, 12, 24, 0.85);
   border: 3px solid rgba(242, 215, 161, 0.28);
   color: #f7e6bf;
@@ -269,6 +272,7 @@ body {
   transition:
     border-color 0.3s ease,
     background-color 0.3s ease;
+  box-sizing: border-box;
 }
 
 .rsvp-form input:focus,
@@ -500,6 +504,8 @@ body {
   .rsvp-form select,
   .rsvp-form textarea {
     border-width: 2px;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .dependent__remove,
