@@ -50,7 +50,6 @@ test("visitor can submit RSVP with adult and child guests", async ({
 
   await page.getByRole("button", { name: "Send RSVP" }).click();
 
-  await expect(page.getByRole("status")).toContainText(
-    "Thank you! Your RSVP has been recorded.",
-  );
+  await expect(page).toHaveURL(/thank-you/);
+  await expect(page.getByRole("heading", { name: "Thank You" })).toBeVisible();
 });

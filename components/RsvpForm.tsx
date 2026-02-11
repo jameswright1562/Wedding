@@ -4,6 +4,7 @@ import { hasSupabaseConfig, supabaseClient } from "@/lib/supabaseClient";
 import { DependentCard } from "./DependentCard";
 import { desserts, mains, sorbets, starters } from "./menu-data";
 import { Dependent, RSVPFormData } from "./types";
+import { useRouter } from "next/navigation";
 
 const blankDependent = (): Dependent => ({
   name: "",
@@ -22,6 +23,7 @@ export function RsvpForm() {
   const allowMockSubmit =
     process.env.NODE_ENV !== "production" ||
     process.env.NEXT_PUBLIC_ENABLE_SUPABASE_MOCK === "true";
+  const router = useRouter();
   const [status, setStatus] = useState<{ message: string; isError: boolean }>({
     message: "",
     isError: false,
@@ -112,6 +114,7 @@ export function RsvpForm() {
         isError: false,
       });
       reset();
+      router.push("/thank-you");
     } catch (err) {
       console.error(err);
       setStatus({
