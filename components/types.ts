@@ -13,6 +13,8 @@ export type Dependent = {
 };
 
 export type RSVPFormData = {
+  isKid?: boolean;
+  id?: string;
   guest_name: string;
   starter: string;
   sorbet: string;
@@ -20,4 +22,5 @@ export type RSVPFormData = {
   dessert: string;
   notes: string;
   dependents: Dependent[];
+  dependent_of_id?: string;
 };

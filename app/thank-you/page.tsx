@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-export default function ThankYouPage() {
+export default function ThankYouPage({searchParams}: {searchParams: {id?: string}}) {
   return (
     <main className="invite" style={{ textAlign: "center" }}>
       <div className="flourish flourish--left" />
@@ -14,7 +14,7 @@ export default function ThankYouPage() {
         We&apos;ve received your RSVP. We can&apos;t wait to celebrate with you.
       </p>
       <p className="invite__subhead">Need to update your response?</p>
-      <Link href="/" style={{ color: "#f2d7a1", fontWeight: 600 }}>
+      <Link href={`/?id=${searchParams.id}`} style={{ color: "#f2d7a1", fontWeight: 600 }}>
         Go back to the RSVP form
       </Link>
     </main>

@@ -31,7 +31,7 @@ export const kidStarters = [
 ];
 
 export const kidMains = [
-  "chicken nuggets,chips & beans OR peas",
+  "Chicken nuggets, Chips & beans OR peas",
   "Sausage & mash with beans OR peas",
   "Fish fingers, chips & beans OR peas",
 ];

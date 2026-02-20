@@ -29,6 +29,18 @@ npm test        # headless
 npx playwright test --headed  # interactive
 ```
 
+Playwright E2E against local Supabase (requires Docker):
+
+```bash
+npm run test:e2e:local
+```
+
+The local script will:
+- start Supabase via `npx supabase start`
+- reset the local database with project migrations
+- run Playwright using local Supabase anon/service-role keys
+- stop Supabase when finished
+
 ## Deploying to Vercel
 
 - Set the two env vars above in Vercel project settings.
