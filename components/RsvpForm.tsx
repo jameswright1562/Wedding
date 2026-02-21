@@ -227,7 +227,7 @@ export function RsvpForm({ form }: { form?: RSVPFormData | null }) {
     status === "error" ? "Try again." : status === "success" ? "Saved." : "";
 
   return (
-    <form className="rsvp-form" onSubmit={onSubmit}>
+    <form className="rsvp-form" onSubmit={onSubmit} id="rsvp-form">
       <label>
         Full Name
         <input

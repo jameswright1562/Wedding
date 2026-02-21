@@ -58,7 +58,7 @@ export function DependentCard({
             <Tabs.List
               className="tab-buttons"
               aria-label="Guest type"
-              style={{ gap: "8px" }}
+              style={{ gap: "8px", padding: "1rem" }}
             >
               <Tabs.Trigger
                 value="adult"
