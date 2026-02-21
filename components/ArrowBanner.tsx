@@ -10,7 +10,10 @@ export function ArrowBanner() {
   return (
     <div className="arrow-banner">
       <span>Choose your meal options</span>
-      <div className="arrow-row">
+      <div className="arrow-row" onClick={() => window.scrollTo({
+        behavior: "smooth",
+        top: document.getElementById("rsvp-form")?.offsetTop,
+      })}>
         <Arrow />
       </div>
     </div>

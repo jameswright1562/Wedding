@@ -104,10 +104,7 @@ export function RsvpForm({ form }: { form?: RSVPFormData | null }) {
     process.env.NODE_ENV !== "production" ||
     process.env.NEXT_PUBLIC_ENABLE_SUPABASE_MOCK === "true";
   const router = useRouter();
-  const [status, setStatus] = useState<{ message: string; isError: boolean }>({
-    message: "",
-    isError: false,
-  });
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { register, control, handleSubmit, reset, watch } = useForm<RSVPFormData>({
@@ -143,25 +140,22 @@ export function RsvpForm({ form }: { form?: RSVPFormData | null }) {
   });
 
   const onSubmit = handleSubmit(async (data) => {
+    setStatus("idle");
+
     if (!hasSupabaseConfig || !supabaseClient) {
       if (allowMockSubmit) {
-        setStatus({
-          message: "Thank you! Your RSVP has been recorded.",
-          isError: false,
-        });
+        setStatus("success");
         reset();
         return;
       }
-      setStatus({
-        message:
-          "Supabase is not configured. Add env vars to send RSVPs to the database.",
-        isError: true,
-      });
+      setStatus("error");
       return;
     }
 
     setIsSubmitting(true);
-    setStatus({ message: "Sending your RSVP...", isError: false });
+    setStatus("idle");
+    //rerender to show loading state before starting async work
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     const submittedAt = new Date().toISOString();
 
@@ -200,11 +194,17 @@ export function RsvpForm({ form }: { form?: RSVPFormData | null }) {
       });
 
     try {
-      if(form?.id)
-      {
-        await supabaseClient.from("wedding_rsvps").delete().select()
-        .or(`id.eq.${id},dependent_of_id.in.(${id})`)
+      if (form?.id) {
+        const { error: deleteError } = await supabaseClient
+          .from("wedding_rsvps")
+          .delete()
+          .or(`id.eq.${id},dependent_of_id.eq.${id}`);
+
+        if (deleteError) {
+          throw deleteError;
+        }
       }
+
       const { error, data } = await supabaseClient
         .from("wedding_rsvps")
         .insert([primaryRow, ...dependentRows]).select();
@@ -213,26 +213,20 @@ export function RsvpForm({ form }: { form?: RSVPFormData | null }) {
         throw error;
       }
 
-      setStatus({
-        message: "Thank you! Your RSVP has been recorded.",
-        isError: false,
-      });
-      reset();
+      setStatus("success");
       const mainGuest = data?.find((item) => item.id === primaryRow.id);
       router.push(`/thank-you?id=${mainGuest?.id}`);
     } catch (err) {
       console.error(err);
-      setStatus({
-        message: "Something went wrong. Please try again.",
-        isError: true,
-      });
-    } finally {
-      setIsSubmitting(false);
+      setStatus("error");
     }
   });
 
+  const statusMessage =
+    status === "error" ? "Try again." : status === "success" ? "Saved." : "";
+
   return (
-    <form className="rsvp-form" onSubmit={onSubmit}>
+    <form className="rsvp-form" onSubmit={onSubmit} id="rsvp-form">
       <label>
         Full Name
         <input
@@ -328,17 +322,25 @@ export function RsvpForm({ form }: { form?: RSVPFormData | null }) {
         </div>
       </div>
 
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Sending..." : "Send RSVP"}
+      <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>
+        {isSubmitting ? (
+          <>
+            <span className="button-spinner" aria-hidden="true" />
+            Sending...
+          </>
+        ) : (
+          "Send RSVP"
+        )}
       </button>
-      <p
-        className="form-status"
-        role="status"
-        aria-live="polite"
-        style={{ color: status.isError ? "#f7b3b3" : "#f2d7a1" }}
-      >
-        {status.message}
+      {status === "error" && (
+        <p
+          className={`form-status form-status--error`}
+          role="status"
+          aria-live="polite"
+        >
+          {statusMessage}
       </p>
+      )}
     </form>
   );
 }
