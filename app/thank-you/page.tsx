@@ -33,9 +33,9 @@ export default function ThankYouPage({searchParams}: {searchParams: {id?: string
       >
         Go back to the RSVP form
       </Link>
-            <p className="invite__subhead" style={{marginTop: 12}}>Need to request for someone else?</p>
+      <p className="invite__subhead" style={{marginTop: 12}}>Need to request for someone else?</p>
       <Link
-        href={`/?new-request=true`}
+        href={`/?newRequest=true`}
         style={{ color: "#f2d7a1", fontWeight: 600 }}
       >
         New RSVP request

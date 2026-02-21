@@ -30,13 +30,14 @@ export default function Page({ searchParams }: { searchParams: { id?: string, ed
 
   useEffect(() => {
     if (searchParams.newRequest) {
+      localStorage.removeItem("inviteId");
       setInviteId(null);
       return;
     }
     if (inviteIdFromQuery) {
       setInviteId(inviteIdFromQuery);
       if(inviteId && !searchParams.editing)
-        router.push(`thank-you/?id=${inviteId}`);
+        router.push(`/thank-you/?id=${inviteId}`);
       return;
     }
     if (!enableInviteLocalStorage) {
@@ -48,9 +49,10 @@ export default function Page({ searchParams }: { searchParams: { id?: string, ed
       typeof window !== "undefined" &&
       typeof window.localStorage?.getItem === "function"
     ) {
-      setInviteId(window.localStorage.getItem("inviteId"));
-      if(inviteId && !searchParams.editing)
-        router.push(`thank-you/?id=${inviteId}`);
+      const inviteIdFromStorage = window.localStorage.getItem("inviteId");
+      setInviteId(inviteIdFromStorage);
+      if(inviteIdFromStorage && !searchParams.editing)
+        router.push(`/thank-you/?id=${inviteIdFromStorage}`);
       return;
     }
 
