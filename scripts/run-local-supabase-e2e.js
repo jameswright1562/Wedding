@@ -52,13 +52,23 @@ function captureNpx(args) {
 }
 
 function parseEnvOutput(output) {
+  const unwrapQuotes = (raw) => {
+    if (
+      (raw.startsWith('"') && raw.endsWith('"')) ||
+      (raw.startsWith("'") && raw.endsWith("'"))
+    ) {
+      return raw.slice(1, -1);
+    }
+    return raw;
+  };
+
   return output.split(/\r?\n/).reduce((vars, line) => {
     const separator = line.indexOf("=");
     if (separator === -1) {
       return vars;
     }
     const key = line.slice(0, separator).trim();
-    const value = line.slice(separator + 1).trim();
+    const value = unwrapQuotes(line.slice(separator + 1).trim());
     if (key) {
       vars[key] = value;
     }
