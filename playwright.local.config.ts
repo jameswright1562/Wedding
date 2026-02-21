@@ -33,6 +33,7 @@ export default defineConfig({
       NEXT_PUBLIC_SUPABASE_URL: supabaseUrl,
       NEXT_PUBLIC_SUPABASE_ANON_KEY: supabaseAnonKey,
       NEXT_PUBLIC_ENABLE_SUPABASE_MOCK: "false",
+      NEXT_PUBLIC_ENABLE_INVITE_LOCAL_STORAGE: "false",
     },
   },
 });

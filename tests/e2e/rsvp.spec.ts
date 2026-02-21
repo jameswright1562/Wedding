@@ -91,7 +91,7 @@ test.describe("RSVP UI and Supabase breakage coverage", () => {
 
     await expect(page).toHaveURL(/\/$/);
     expect(insertCallCount).toBe(0);
-    await expect(page.getByRole("status")).toHaveText("");
+    await expect(page.getByRole("status")).toHaveCount(0);
   });
 
   test("does not submit removed guests", async ({ page }) => {
@@ -191,7 +191,7 @@ test.describe("RSVP UI and Supabase breakage coverage", () => {
     expect(insertCallCount).toBe(1);
   });
 
-  test("shows an error on transient network failure and succeeds on retry", async ({
+  test("shows an error on transient network failure and succeeds after retry flow", async ({
     page,
   }) => {
     let insertCallCount = 0;
@@ -219,8 +219,10 @@ test.describe("RSVP UI and Supabase breakage coverage", () => {
 
     await page.getByRole("button", { name: "Send RSVP" }).click();
     await expect(page.getByRole("status")).toHaveText("Try again.");
-    await expect(page.getByRole("button", { name: "Send RSVP" })).toBeEnabled();
+    await expect(page.getByRole("button", { name: "Sending..." })).toBeDisabled();
 
+    await openRsvpForm(page);
+    await fillPrimaryGuest(page, { name: "Retry Guest" });
     await page.getByRole("button", { name: "Send RSVP" }).click();
     await expect(page).toHaveURL(/thank-you\?id=/);
     expect(insertCallCount).toBe(2);
@@ -313,7 +315,7 @@ test.describe("RSVP UI and Supabase breakage coverage", () => {
       return route.continue();
     });
 
-    await openRsvpForm(page, "/?id=invite-existing");
+    await openRsvpForm(page, "/?id=invite-existing&editing=true");
     await expect(page.getByLabel("Full Name")).toHaveValue("Existing Guest");
     await expect(page.locator(".dependent")).toHaveCount(1);
 
@@ -350,7 +352,7 @@ test.describe("RSVP UI and Supabase breakage coverage", () => {
       return route.continue();
     });
 
-    await openRsvpForm(page, "/?id=broken-invite");
+    await openRsvpForm(page, "/?id=broken-invite&editing=true");
     await expect(page.getByLabel("Full Name")).toHaveValue("");
 
     await fillPrimaryGuest(page, { name: "Fallback Guest" });

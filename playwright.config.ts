@@ -26,6 +26,7 @@ export default defineConfig({
       NEXT_PUBLIC_SUPABASE_ANON_KEY:
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "test",
       NEXT_PUBLIC_ENABLE_SUPABASE_MOCK: "true",
+      NEXT_PUBLIC_ENABLE_INVITE_LOCAL_STORAGE: "false",
     },
   },
 });

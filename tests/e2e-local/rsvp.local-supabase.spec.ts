@@ -168,7 +168,7 @@ test("editing an existing RSVP replaces rows instead of duplicating them", async
     .toBe(2);
 
   await page.getByRole("link", { name: "Go back to the RSVP form" }).click();
-  await expect(page).toHaveURL(new RegExp(`\\/\\?id=${inviteId}`));
+  await expect(page).toHaveURL(new RegExp(`\\/\\?id=${inviteId}&editing=true`));
   await expect(page.getByLabel("Full Name")).toHaveValue(primaryName);
 
   await page.getByRole("button", { name: "Remove guest 1" }).click();

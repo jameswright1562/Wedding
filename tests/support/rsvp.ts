@@ -43,6 +43,7 @@ type ChildDependentOptions = {
 export async function openRsvpForm(page: Page, path = "/") {
   await page.goto(path);
   await page.getByRole("heading", { name: "Ryan & Emmie" }).waitFor();
+  await page.getByLabel("Full Name").waitFor();
 }
 
 export async function fillPrimaryGuest(

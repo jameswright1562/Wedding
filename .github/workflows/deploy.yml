@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy
 
 on:
   push:
@@ -37,34 +37,3 @@ jobs:
 
       - name: Run mocked E2E tests
         run: npm run test:e2e
-
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      - name: Inject Supabase config
-        run: |
-          cat <<CONFIG > supabase-config.js
-          window.SUPABASE_CONFIG = {
-            url: "${{ secrets.SUPABASE_URL }}",
-            key: "${{ secrets.SUPABASE_ANON_KEY }}",
-          };
-          CONFIG
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
