@@ -7,6 +7,7 @@ import { InviteHeader } from "@/components/InviteHeader";
 import { MenuSection } from "@/components/MenuSection";
 import { RsvpForm } from "@/components/RsvpForm";
 import { Dependent, RSVPFormData } from "@/components/types";
+import { enableInviteLocalStorage } from "@/lib/clientFlags";
 import { supabaseClient } from "@/lib/supabaseClient";
 
 export default function Page({ searchParams }: { searchParams: { id?: string } }) {
@@ -28,6 +29,10 @@ export default function Page({ searchParams }: { searchParams: { id?: string } }
   useEffect(() => {
     if (inviteIdFromQuery) {
       setInviteId(inviteIdFromQuery);
+      return;
+    }
+    if (!enableInviteLocalStorage) {
+      setInviteId(null);
       return;
     }
 

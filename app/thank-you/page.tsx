@@ -2,10 +2,12 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { enableInviteLocalStorage } from "@/lib/clientFlags";
 
 export default function ThankYouPage({searchParams}: {searchParams: {id?: string}}) {
   useEffect(() => {
     if (
+      enableInviteLocalStorage &&
       searchParams.id &&
       typeof window !== "undefined" &&
       typeof window.localStorage?.setItem === "function"

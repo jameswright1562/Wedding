@@ -18,7 +18,10 @@ Create `.env.local`:
 ```
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+NEXT_PUBLIC_ENABLE_INVITE_LOCAL_STORAGE=true
 ```
+
+Set `NEXT_PUBLIC_ENABLE_INVITE_LOCAL_STORAGE=false` to disable reading/writing invite IDs in browser localStorage.
 
 ## Tests
 

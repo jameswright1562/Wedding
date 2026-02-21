@@ -154,6 +154,8 @@ export function RsvpForm({ form }: { form?: RSVPFormData | null }) {
 
     setIsSubmitting(true);
     setStatus("idle");
+    //rerender to show loading state before starting async work
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     const submittedAt = new Date().toISOString();
 
@@ -212,14 +214,11 @@ export function RsvpForm({ form }: { form?: RSVPFormData | null }) {
       }
 
       setStatus("success");
-      reset();
       const mainGuest = data?.find((item) => item.id === primaryRow.id);
       router.push(`/thank-you?id=${mainGuest?.id}`);
     } catch (err) {
       console.error(err);
       setStatus("error");
-    } finally {
-      setIsSubmitting(false);
     }
   });
 
@@ -333,13 +332,15 @@ export function RsvpForm({ form }: { form?: RSVPFormData | null }) {
           "Send RSVP"
         )}
       </button>
-      <p
-        className={`form-status ${status === "error" ? "form-status--error" : ""}`}
-        role="status"
-        aria-live="polite"
-      >
-        {statusMessage}
+      {status === "error" && (
+        <p
+          className={`form-status form-status--error`}
+          role="status"
+          aria-live="polite"
+        >
+          {statusMessage}
       </p>
+      )}
     </form>
   );
 }
