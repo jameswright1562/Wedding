@@ -28,10 +28,17 @@ export default function ThankYouPage({searchParams}: {searchParams: {id?: string
       </p>
       <p className="invite__subhead">Need to update your response?</p>
       <Link
-        href={searchParams.id ? `/?id=${searchParams.id}` : "/"}
-        style={{ color: "#f2d7a1", fontWeight: 600 }}
+        href={searchParams.id ? `/?id=${searchParams.id}&editing=true` : "/"}
+        style={{ color: "#f2d7a1", fontWeight: 600, marginBottom: 12 }}
       >
         Go back to the RSVP form
+      </Link>
+            <p className="invite__subhead" style={{marginTop: 12}}>Need to request for someone else?</p>
+      <Link
+        href={`/?new-request=true`}
+        style={{ color: "#f2d7a1", fontWeight: 600 }}
+      >
+        New RSVP request
       </Link>
     </main>
   );

@@ -9,8 +9,9 @@ import { RsvpForm } from "@/components/RsvpForm";
 import { Dependent, RSVPFormData } from "@/components/types";
 import { enableInviteLocalStorage } from "@/lib/clientFlags";
 import { supabaseClient } from "@/lib/supabaseClient";
+import { useRouter } from "next/navigation";
 
-export default function Page({ searchParams }: { searchParams: { id?: string } }) {
+export default function Page({ searchParams }: { searchParams: { id?: string, editing?: boolean, newRequest?: boolean } }) {
   const inviteIdFromQuery = searchParams.id ?? null;
   const inviteDate = useMemo(
     () => ({
@@ -25,10 +26,17 @@ export default function Page({ searchParams }: { searchParams: { id?: string } }
   const [inviteId, setInviteId] = useState<string | null>(inviteIdFromQuery);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState<RSVPFormData | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
+    if (searchParams.newRequest) {
+      setInviteId(null);
+      return;
+    }
     if (inviteIdFromQuery) {
       setInviteId(inviteIdFromQuery);
+      if(inviteId && !searchParams.editing)
+        router.push(`thank-you/?id=${inviteId}`);
       return;
     }
     if (!enableInviteLocalStorage) {
@@ -41,6 +49,8 @@ export default function Page({ searchParams }: { searchParams: { id?: string } }
       typeof window.localStorage?.getItem === "function"
     ) {
       setInviteId(window.localStorage.getItem("inviteId"));
+      if(inviteId && !searchParams.editing)
+        router.push(`thank-you/?id=${inviteId}`);
       return;
     }
 
